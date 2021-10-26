@@ -52,6 +52,12 @@
 ```
 --------------
 
+### Edit the config.js file
+```bash
+> nano config.js
+````
+----------------
+
 ### Thanks To 
 [`@Nurutomo`](https://github.com/Nurutomo)
 [`@Rizxyu`](https://github.com/Rizxyu)

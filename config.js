@@ -1,7 +1,7 @@
 global.DeveloperMode = 'false' //true Or false
 global.linkGC = ['https://chat.whatsapp.com/Lb4Emjih98rBiCZiZoS2eM', 'https://chat.whatsapp.com/FrluVyY5kBRIhY6yKfH4DI']
 global.owner = ['6285783417029'] // Owner
-global.mods = ['6283159537218'] // moderator
+global.mods = [] // moderator
 global.prems = []  //premium
 global.APIs = { // API Prefix
   // name: 'https://website'
@@ -21,15 +21,15 @@ global.APIs = { // API Prefix
 }
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://api.xteam.xyz': 'a37e3dcc2b95fa93',
+  'https://api.xteam.xyz': 'APIKEY_DISINI',
   'https://zahirr-web.herokuapp.com': 'zahirgans',
   'https://bsbt-api-rest.herokuapp.com': 'benniismael',
   'https://api.zeks.xyz': 'apivinz',
   'https://pencarikode.xyz': 'pais',
   'https://hardianto-chan.herokuapp.com': 'hardianto',
   'https://leyscoders-api.herokuapp.com': 'MIMINGANZ',
-  'https://api.lolhuman.xyz': '319fc87fef7a8b255c92ba84',
-  'https://api.chipa.xyz': 'G1CN40W5CXAX47VCMAFZ443L'
+  'https://api.lolhuman.xyz': 'APIKEY_DISINI',
+  'https://api.chipa.xyz': 'APIKEY_DISINI'
 }
 
 // Sticker WM

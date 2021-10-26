@@ -2,14 +2,14 @@
 
 ![26++ Anime Rain Wallpaper 4k](https://user-images.githubusercontent.com/88314302/131470544-d1ae64d2-b0e3-40cb-a0ea-7a26a073b5d1.jpeg)
 
-<a href="https://github.com/MuhammadRestu999/RestuBot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Rizxyu/Bot-Rain?label=Forks&color=blue&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/watchers"><img title="Watchers" src="https://img.shields.io/github/watchers/Rizxyu/Bot-Rain?label=Watchers&color=green&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/stargazers"><img title="Stars" src="https://img.shields.io/github/stars/Rizxyu/Bot-Rain?label=Stars&color=yellow&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/graphs/contributors"><img title="Contributors" src="https://img.shields.io/github/contributors/Rizxyu/Bot-Rain?label=Contributors&color=blue&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/issues"><img title="Issues" src="https://img.shields.io/github/issues/Rizxyu/Bot-Rain?label=Issues&color=success&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/issues?q=is%3Aissue+is%3Aclosed"><img title="Issues" src="https://img.shields.io/github/issues-closed/Rizxyu/Bot-Rain?label=Issues&color=red&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/Rizxyu/Bot-Rain?label=PullRequest&color=success&style=flat-square"></a>
-<a href="https://github.com/MuhammadRestu999/RestuBot/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Rizxyu/Bot-Rain?label=PullRequest&color=red&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/MuhammadRestu999/RestuBot?label=Forks&color=blue&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/watchers"><img title="Watchers" src="https://img.shields.io/github/watchers/MuhammadRestu999/RestuBot?label=Watchers&color=green&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/stargazers"><img title="Stars" src="https://img.shields.io/github/stars/MuhammadRestu999/RestuBot?label=Stars&color=yellow&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/graphs/contributors"><img title="Contributors" src="https://img.shields.io/github/contributors/MuhammadRestu999/RestuBot?label=Contributors&color=blue&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/issues"><img title="Issues" src="https://img.shields.io/github/issues/MuhammadRestu999/RestuBot?label=Issues&color=success&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/issues?q=is%3Aissue+is%3Aclosed"><img title="Issues" src="https://img.shields.io/github/issues-closed/MuhammadRestu999/RestuBot?label=Issues&color=red&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/MuhammadRestu999/RestuBot?label=PullRequest&color=success&style=flat-square"></a>
+<a href="https://github.com/MuhammadRestu999/RestuBot/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/MuhammadRestu999/RestuBot?label=PullRequest&color=red&style=flat-square"></a>
 ## my bot
 [` Bot `](https://wa.me/62857834170291)
 

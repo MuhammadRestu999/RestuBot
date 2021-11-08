@@ -5,7 +5,6 @@ global.mods = [] // moderator
 global.prems = []  //premium
 global.APIs = { // API Prefix
   // name: 'https://website'
-  rns: 'https://api-reysekha.herokuapp.com',
   nrtm: 'https://nurutomo.herokuapp.com',
   xteam: 'https://api.xteam.xyz',
   nzcha: 'http://nzcha-apii.herokuapp.com',
@@ -22,7 +21,6 @@ global.APIs = { // API Prefix
 }
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://api-reysekha.herokuapp.com': 'apirey',
   'https://api.xteam.xyz': 'APIKEY_DISINI',
   'https://zahirr-web.herokuapp.com': 'zahirgans',
   'https://bsbt-api-rest.herokuapp.com': 'benniismael',

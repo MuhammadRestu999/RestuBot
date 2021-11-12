@@ -313,7 +313,7 @@ if (!isNumber(user.lele)) user.lele = 0
         console.error(e)
       }
       if (opts['nyimak']) return
-      if (!m.fromMe && opts['self']) return
+      if (!(global.owner.includes(m.sender.split("@")[0]) || m.fromMe) && opts['self']) return
       if (m.chat == 'status@broadcast') return
       if (typeof m.text !== 'string') m.text = ''
       conn.chatRead(m.chat)
@@ -555,9 +555,11 @@ if (!isNumber(user.lele)) user.lele = 0
       case 'remove':
         let groupMetadata = await this.groupMetadata(jid)
         for (let user of participants) {
-          let pp = './src/avatar_contact.png'
+          let pp = "https://i.ibb.co/D9YK1r5/avatar-contact.png"
+          let ppgc = "https://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png"
           try {
             pp = await this.getProfilePicture(user)
+            ppgc = await this.getProfilePicture(groupMetadata.id)
           } catch (e) {
             
           } finally {
@@ -566,33 +568,19 @@ if (!isNumber(user.lele)) user.lele = 0
               let lep = (chat.sBye || this.bye || conn.bye || 'Selamat tinggal @user').replace('@subject', this.getName(jid)).replace('@user', '@' + user.split('@')[0])
               let orangtag = conn.parseMention(`@${user.split("@")[0]}`)
               if(action === "add") {
-                if(pp == './src/avatar_contact.png') {
-                  this.sendButtonImage(jid, `${welkom}`, fs.readFileSync(pp), `${groupMetadata.desc || ""}\n`, "👋", "👋", {
-                    contextInfo: {
-                      mentionedJid: orangtag
-                    }
-                  })
-                } else {
-                  this.sendButtonImg(jid, `${welkom}`, pp, `${groupMetadata.desc || ""}\n`, "👋", "👋", {
-                    contextInfo: {
-                      mentionedJid: orangtag
-                    }
-                  })
-                }
-              } else if(action == "remove") {
-                if(pp == './src/avatar_contact.png') {
-                this.sendButtonImage(jid, `${lep}`, fs.readFileSync(pp), "", "👋", "👋", {
+                let imgk = `https://hardianto-chan.herokuapp.com/api/tools/welcomer?nama=${encodeURIComponent(await conn.getName(user))}&namaGb=${encodeURIComponent(groupMetadata.subject)}&pepeGb=${encodeURIComponent(ppgc)}&totalMem=${encodeURIComponent(groupMetadata.participants.length)}&pepeUser=${encodeURIComponent(pp)}&bege=${encodeURIComponent("https://i.ibb.co/WyvDRgy/20210422-044002.jpg")}&apikey=hardianto`
+                this.sendButtonImg(jid, `${welkom}`, imgk, `${groupMetadata.desc || "\n"}`, "👋", "👋", {
                   contextInfo: {
                     mentionedJid: orangtag
                   }
                 })
-                } else {
-                  this.sendButtonImg(jid, `${lep}`, pp, "", "👋", "👋", {
-                    contextInfo: {
-                      mentionedJid: orangtag
-                    }
-                  })
-                }
+              } else if(action == "remove") {
+                let imgk = `https://hardianto-chan.herokuapp.com/api/tools/leave?nama=${encodeURIComponent(await conn.getName(user))}&namaGb=${encodeURIComponent(groupMetadata.subject)}&pepeGb=${encodeURIComponent(ppgc)}&totalMem=${encodeURIComponent(groupMetadata.participants.length)}&pepeUser=${encodeURIComponent(pp)}&bege=${encodeURIComponent("https://i.ibb.co/WyvDRgy/20210422-044002.jpg")}&apikey=hardianto`
+                this.sendButtonImg(jid, `${lep}`, imgk, "\n", "👋", "👋", {
+                  contextInfo: {
+                    mentionedJid: orangtag
+                  }
+                })
               }
             }
           }
@@ -671,7 +659,7 @@ Untuk mematikan fitur ini, ketik
           global.DATABASE.data.users[from].warning = warning
         } else {
           await this.sendMessage(from, `Maaf, Tolong jangan telfon BOT!!!\n\n4 / 3`, MessageType.extendedText)
-          await this.sendMessage(from, "Maaf, kamu akan diblokir karena telah menelepon bot 3 kali!", MessageType.extendedText)
+          await this.sendMessage(from, "Maaf, kamu akan diblokir karena telah menelepon bot lebih dari 3 kali!", MessageType.extendedText)
           await this.blockUser(from, 'add')
         }
     }
@@ -691,6 +679,16 @@ global.dfail = (type, m, conn) => {
   }[type]
   if (msg) return m.reply(msg)
 }
+
+conn.getGroupAdmins = async(participants) => {
+  admins = []
+  for (let i of participants) {
+    i.isAdmin ? admins.push(i.jid) : ''
+  }
+  return admins
+}
+
+global.Ft = require("./lib/function")
 
 let fs = require('fs')
 let chalk = require('chalk')

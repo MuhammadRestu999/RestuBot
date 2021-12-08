@@ -34,6 +34,10 @@ global.APIKeys = { // APIKey Here
   'https://api.chipa.xyz': 'APIKEY_DISINI'
 }
 
+// Text :v
+global.wait = 'Mohon Tunggu Sebentar...'
+
+
 // Sticker WM
 global.packname = 'Create By RestuBot\nOwner : Muhammad Restu'
 global.author = ''

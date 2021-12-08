@@ -69,4 +69,4 @@
 <a href="https://api.xteam.xyz"><img src="https://i.ibb.co/7j0vtwz/xlogo.png" width="100" height="100"></a> | [![Rizxyu](https://github.com/Rizxyu.png?size=100)](https://github.com/Rizxyu) | [![MuhammadRestu999](https://github.com/MuhammadRestu999.png?size=100)](https://github.com/MuhammadRestu999)
 ----|----|----|
 [XTEAM](https://api.xteam.xyz/) | [Rizxyu](https://github.com/Rizxyu) | [MuhammadRestu999](https://github.com/MuhammadRestu999)
-Powered by XTEAM | Creator | Recoder
+Powered by XTEAM | Team | Creator

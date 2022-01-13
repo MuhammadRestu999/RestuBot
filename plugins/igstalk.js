@@ -3,7 +3,7 @@ let axios = require("axios")
 let handler = async (m, { conn, args }) => {
   if(!(global.owner.includes(m.sender.split("@")[0]) || global.mods.includes(m.sender.split("@")[0]))) return m.reply("Sedang dalam perbaikan!")
   if (!args[0]) throw 'Uhm...username nya mana?'
-  let { data } = await axios(`https://hardianto-chan.herokuapp.com/api/igstalk?username=${args[0]}&apikey=hardianto`)
+  let { data } = await axios(`https://hardianto.xyz/api/igstalk?username=${args[0]}&apikey=hardianto`)
   if (data.code != 200) throw "Error!\n\nUsername tidak ditemukan / web api error"
   let {
     fullname,

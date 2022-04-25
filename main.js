@@ -23,22 +23,27 @@ global.timestamp = {
 const PORT = process.env.PORT || 3000
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 
+console.log("\nOptions :\n" + Object.entries(opts).filter(v => v[1] == true).map(v => v[0] + " ✓").join("\n") + "\n\n")
+
 //global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
-global.prefix = "+"
+global.prefix = /^([+/%?!#.Y])/i
 
 global.DATABASE = new (require('./lib/database'))(`${opts._[0] ? opts._[0] + '_' : ''}database.json`, null, 2)
-if (!global.DATABASE.data.users) global.DATABASE.data = {
-  users: {},
+if (!global.DATABASE.data.users) global.DATABASE.data.users = {}
+/*  users: {},
   chats: {},
   stats: {},
   msgs: {},
   sticker: {},
-}
+}*/
 if (!global.DATABASE.data.chats) global.DATABASE.data.chats = {}
 if (!global.DATABASE.data.stats) global.DATABASE.data.stats = {}
 if (!global.DATABASE.data.msgs) global.DATABASE.data.msgs = {}
 if (!global.DATABASE.data.sticker) global.DATABASE.data.sticker = {}
 global.conn = new WAConnection()
+conn.version = [2, 2140, 12]
+conn.browserDescription = ["Bot-Whatsapp", "Firefox", "5.0"]
+
 let authFile = `${opts._[0] || 'session'}.data.json`
 if (fs.existsSync(authFile)) conn.loadAuthInfo(authFile)
 if (opts['trace']) conn.logger.level = 'trace'
@@ -100,7 +105,13 @@ if (opts['test']) {
   }
   rl.on('line', line => conn.sendMessage('123@s.whatsapp.net', line.trim(), 'conversation'))
 } else {
-  rl.on('line', line => {
+  rl.on('line', async(line) => {
+    if(line.trim().includes(" ∆ ")) {
+      if(await conn.isOnWhatsApp(line.trim().split(" ∆ ")[0].includes("@") ? line.trim().split(" ∆ ")[0] : line.trim().split(" ∆ ")[0] + "@s.whatsapp.net") || line.trim().split(" ∆ ")[0].endsWith("@g.us")) {
+        conn.sendMessage((line.trim().split(" ∆ ")[0].endsWith("@g.us") ? line.trim().split(" ∆ ")[0] : line.trim().split(" ∆ ")[0].includes("@") ? line.trim().split(" ∆ ")[0] : line.trim().split(" ∆ ")[0] + "@s.whatsapp.net"), line.trim().split(" ∆ ")[1], "conversation")
+      } else {
+      }
+    }
     global.DATABASE.save()
     process.send(line.trim())
   })
@@ -119,7 +130,7 @@ global.reloadHandler = function () {
     conn.off('chat-update', conn.handler)
     conn.off('message-delete', conn.onDelete)
     conn.off('group-participants-update', conn.onParticipantsUpdate)
-    conn.off('CB:action,,call', conn.onCall)
+    //conn.off('CB:action,,call', conn.onCall)
   }
   conn.welcome = 'Hai, @user!\nSelamat datang di grup @subject'
   conn.bye = 'Selamat tinggal @user!'

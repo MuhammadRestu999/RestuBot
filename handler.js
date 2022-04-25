@@ -2,6 +2,9 @@ let util = require('util')
 let simple = require('./lib/simple')
 let { MessageType } = require('@adiwajshing/baileys')
 let { buttonsMessage, contactsArray, image, MimeType } = MessageType
+const isBoolean = (bool) => {
+  return typeof bool == "boolean"
+}
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(resolve, ms))
@@ -15,6 +18,9 @@ module.exports = {
 //UDAH GITU NGAKU NGAKU BIKINAN SENDIRI LAGI,HADEH
     try {
       simple.smsg(this, m)
+      global.from = m.chat
+      global.sender = m.sender
+
       switch (m.mtype) {
         case MessageType.image:
         case MessageType.video:
@@ -37,10 +43,6 @@ module.exports = {
             if (!isNumber(user.lastclaim)) user.lastclaim = 0
             if (!isNumber(user.money)) user.money = 0
             
-            if (!isNumber(user.rumahsakit)) user.rumahsakit= 0
-            if (!isNumber(user.fortress)) user.fortress = 0
-            if (!isNumber(user.troopcamp)) user.troopcamp = 0
-            //
             if (!isNumber(user.diamond)) user.diamond = 0
             if (!isNumber(user.iron)) user.iron = 0
 
@@ -82,14 +84,14 @@ module.exports = {
             if (!isNumber(user.afk)) user.afk = -1
             if (!'afkReason' in user) user.afkReason = ''
             
-            if (!isNumber(user.pedagang)) user.pedagang = false
-            if (!isNumber(user.polisi)) user.polisi = false
-            if (!isNumber(user.dokter)) user.dokter = false
-            if (!isNumber(user.ojek)) user.ojek = false
-            if (!isNumber(user.petani)) user.petani = false
-            if (!isNumber(user.kuli)) user.kuli = false
-            if (!isNumber(user.montir)) user.montir = false
-            if (!isNumber(user.job)) user.job = false
+            if (!isBoolean(user.pedagang)) user.pedagang = false
+            if (!isBoolean(user.polisi)) user.polisi = false
+            if (!isBoolean(user.dokter)) user.dokter = false
+            if (!isBoolean(user.ojek)) user.ojek = false
+            if (!isBoolean(user.petani)) user.petani = false
+            if (!isBoolean(user.kuli)) user.kuli = false
+            if (!isBoolean(user.montir)) user.montir = false
+            if (!isBoolean(user.job)) user.job = false
             //last Job
             if (!isNumber(user.lastjb)) user.lastjb = 0
             
@@ -162,16 +164,11 @@ if (!isNumber(user.lele)) user.lele = 0
                 if (!isNumber(user.regTime)) user.regTime = -1
                 if (!user.role) user.role = 'Beginner'
             }
-            if (!('autolevelup' in user)) user.autolevelup = true
+            if (!('autolevelup' in user)) user.autolevelup = false
         } else global.DATABASE._data.users[m.sender] = {
             healt: 100,
             stamina: 100,
             level: 0,
-            //
-            rumahsakit: 0,
-            troopcamp: 0,
-            fortress: 0,
-            //
             exp: 0,
             limit: 10,
             lastclaim: 0,
@@ -281,7 +278,7 @@ if (!isNumber(user.lele)) user.lele = 0
             age: -1,
             regTime: -1,
             role: 'Beginner',
-            autolevelup: true,
+            autolevelup: false,
         }
 
         let chat = global.DATABASE._data.chats[m.chat]
@@ -312,11 +309,15 @@ if (!isNumber(user.lele)) user.lele = 0
       } catch (e) {
         console.error(e)
       }
+
+      conn.welcome = "Kon\'nichiwa @user!"
+      conn.bye = "Sayōnara @user"
+
       if (opts['nyimak']) return
-      if (!(global.owner.includes(m.sender.split("@")[0]) || m.fromMe) && opts['self']) return
+      if (opts["autoread"]) conn.chatRead(m.chat)
+      if ((!m.fromMe && !global.owner.includes(m.sender.split("@")[0])) && opts['self']) return
       if (m.chat == 'status@broadcast') return
       if (typeof m.text !== 'string') m.text = ''
-      conn.chatRead(m.chat)
       for (let name in global.plugins) {
         let plugin = global.plugins[name]
         if (!plugin) continue
@@ -344,7 +345,7 @@ if (!isNumber(user.lele)) user.lele = 0
       let participants = m.isGroup ? groupMetadata.participants : [] || []
       let user = m.isGroup ? participants.find(u => u.jid == m.sender) : {} // User Data
       let bot = m.isGroup ? participants.find(u => u.jid == this.user.jid) : {} // Your Data
-      let isAdmin = user.isAdmin || user.isSuperAdmin || false // Is User Admin?
+      let isAdmin = user ? (user.isAdmin || user.isSuperAdmin || false) : false // Is User Admin?
       let isBotAdmin = bot.isAdmin || bot.isSuperAdmin || false // Are you Admin?
       let DevMode = (global.DeveloperMode.toLowerCase() == 'true') || false
       for (let name in global.plugins) {
@@ -406,7 +407,7 @@ if (!isNumber(user.lele)) user.lele = 0
           if (m.chat in global.DATABASE._data.chats || m.sender in global.DATABASE._data.users) {
             let chat = global.DATABASE._data.chats[m.chat]
             let user = global.DATABASE._data.users[m.sender]
-            if (name != 'unbanchat.js' && chat && chat.isBanned) return // Except this
+            if (name != 'unbanchat.js' && chat && chat.isBanned && !global.owner.map(v => v + "@s.whatsapp.net").includes(m.sender)) return // Except this
             if (name != 'unbanuser.js' && user && user.Banneduser) return
           }
           if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner
@@ -456,6 +457,21 @@ if (!isNumber(user.lele)) user.lele = 0
             this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
             continue // Limit habis
           }
+
+          let isCmd = m.isCommand
+          let isEval = m.text.startsWith("=> ") || m.text.startsWith("> ")
+          let now = (Date.now() - conn.lastCommand)
+          //let now = (conn.lastCommand - Date.now())
+          let delay = 10000
+
+          conn.lastCommand = conn.lastCommand ?? 0
+          if(global.opts["delay"] && isCmd && !isEval && now < delay) {
+            this.reply(m.chat, `\nCommand sedang cooldown\nCoba lagi dalam ${Ft.clockString(Number(String(now - delay).replace("-", "")))}\n`, m)
+            continue // Delay
+          } else if(isCmd) {
+            conn.lastCommand = Date.now()
+          }
+
           let extra = {
             match,
             usedPrefix,
@@ -548,6 +564,13 @@ if (!isNumber(user.lele)) user.lele = 0
     }
   },
   async participantsUpdate({ jid, participants, action }) {
+    /*let blck = ""
+    if(participants[0].split("@")[0] == blck && action == "add") {
+      await conn.sendMessage(jid, "@" + blck + " anda dilarang masuk ke gc ini!", "conversation", { contextInfo: { mentionedJid: participants } })
+      await conn.groupRemove(jid, [participants[0]]).catch(e => console.log(e.message))
+      return
+    }*/
+    if(opts["self"] && !(global.owner.includes(participants[0].split("@")[0]))) return
     let chat = global.DATABASE._data.chats[jid] || {}
     let text = ''
     switch (action) {
@@ -556,27 +579,28 @@ if (!isNumber(user.lele)) user.lele = 0
         let groupMetadata = await this.groupMetadata(jid)
         for (let user of participants) {
           let pp = "https://i.ibb.co/D9YK1r5/avatar-contact.png"
-          let ppgc = "https://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png"
           try {
             pp = await this.getProfilePicture(user)
-            ppgc = await this.getProfilePicture(groupMetadata.id)
           } catch (e) {
             
           } finally {
+            if(action == "add" && global.owner.map(v => v + "@s.whatsapp.net").includes(user)) {
+              await conn.sendMessage(jid, "Yey owner @" + user.split("@")[0] + " join gc ini (≧▽≦)", "conversation", { contextInfo: { mentionedJid: [user] }})
+              await conn.groupMakeAdmin(jid, [ user ]).catch(e => console.log(e.message))
+              return
+            }
             if(chat.welcome) {
-              let welkom = (chat.sWelcome || this.welcome || conn.welcome || `Selamat datang di grup \"${this.getName(jid)}\" @${user.split("@")[0]}!`).replace('@subject', this.getName(jid)).replace('@user', '@' + user.split('@')[0])
-              let lep = (chat.sBye || this.bye || conn.bye || 'Selamat tinggal @user').replace('@subject', this.getName(jid)).replace('@user', '@' + user.split('@')[0])
+              let welkom = (chat.sWelcome != "" ? chat.sWelcome : false || this.welcome != "" ? this.welcome : false || conn.welcome != "" ? conn.welcome : false || `Kon\'nichiwa @user!`).replace('@subject', this.getName(jid)).replace('@user', '@' + user.split('@')[0])
+              let lep = (chat.sBye != "" ? chat.sBye : false || this.bye != "" ? this.bye : false || conn.bye != "" ? conn.bye : false || 'Sayōnara @user').replace('@subject', this.getName(jid)).replace('@user', '@' + user.split('@')[0])
               let orangtag = conn.parseMention(`@${user.split("@")[0]}`)
               if(action === "add") {
-                let imgk = `https://hardianto-chan.herokuapp.com/api/tools/welcomer?nama=${encodeURIComponent(await conn.getName(user))}&namaGb=${encodeURIComponent(groupMetadata.subject)}&pepeGb=${encodeURIComponent(ppgc)}&totalMem=${encodeURIComponent(groupMetadata.participants.length)}&pepeUser=${encodeURIComponent(pp)}&bege=${encodeURIComponent("https://i.ibb.co/WyvDRgy/20210422-044002.jpg")}&apikey=hardianto`
-                this.sendButtonImg(jid, `${welkom}`, imgk, `${groupMetadata.desc || "\n"}`, "👋", "👋", {
+                this.sendButton(jid, `${welkom}`, "\n", "👋", "👋", null, {
                   contextInfo: {
                     mentionedJid: orangtag
                   }
                 })
               } else if(action == "remove") {
-                let imgk = `https://hardianto-chan.herokuapp.com/api/tools/leave?nama=${encodeURIComponent(await conn.getName(user))}&namaGb=${encodeURIComponent(groupMetadata.subject)}&pepeGb=${encodeURIComponent(ppgc)}&totalMem=${encodeURIComponent(groupMetadata.participants.length)}&pepeUser=${encodeURIComponent(pp)}&bege=${encodeURIComponent("https://i.ibb.co/WyvDRgy/20210422-044002.jpg")}&apikey=hardianto`
-                this.sendButtonImg(jid, `${lep}`, imgk, "\n", "👋", "👋", {
+                this.sendButton(jid, `${lep}`, "\n", "👋", "👋", null, {
                   contextInfo: {
                     mentionedJid: orangtag
                   }
@@ -621,6 +645,7 @@ if (!isNumber(user.lele)) user.lele = 0
     }
   },
   async delete(m) {
+    if(global.opts["self"]) return
     if (m.key.remoteJid == 'status@broadcast') return
     if (m.key.fromMe) return
     let chat = global.DATABASE._data.chats[m.key.remoteJid]
@@ -640,8 +665,10 @@ Untuk mematikan fitur ini, ketik
     await this.send2Button(m.key.remoteJid, `Terdeteksi @${m.participant.split("@")[0]} telah menghapus pesan\n\nUntuk mematikan fitur ini, klik tombol dibawah ↓`, "", "Hidupkan", "+enable antidelete", "Matikan", "+disable antidelete", {contextInfo:{mentionedJid: [m.participant]}})
     this.copyNForward(m.key.remoteJid, m.message).catch(e => console.log(e, m))
   },
+
     async onCall(json) {
         let { from } = json[2][0][1]
+        let id = json[2][0][2][0][1]["call-id"]
         let users = global.DATABASE.data.users
         let user = users[from] || {}
         user.warning = user.warning != undefined ? user.warning : 0
@@ -653,13 +680,16 @@ Untuk mematikan fitur ini, ketik
                     return
                 break
         }
-        if(warning < 3) {
+        if(warning < 2) {
           warning += 1
+          await conn.rejectIncomingCall(from, id)
           await this.sendMessage(from, `Maaf, Tolong jangan telfon BOT!!\n\n${warning} / 3`, MessageType.extendedText)
           global.DATABASE.data.users[from].warning = warning
         } else {
-          await this.sendMessage(from, `Maaf, Tolong jangan telfon BOT!!!\n\n4 / 3`, MessageType.extendedText)
-          await this.sendMessage(from, "Maaf, kamu akan diblokir karena telah menelepon bot lebih dari 3 kali!", MessageType.extendedText)
+          warning += 1
+          await conn.rejectIncomingCall(from, id)
+          await this.sendMessage(from, `Maaf, Tolong jangan telfon BOT!!!\n\n${warning} / 3`, MessageType.extendedText)
+          await this.sendMessage(from, "Maaf, kamu akan diblokir karena telah menelepon bot 3 kali!", MessageType.extendedText)
           await this.blockUser(from, 'add')
         }
     }
@@ -667,15 +697,15 @@ Untuk mematikan fitur ini, ketik
 
 global.dfail = (type, m, conn) => {
   let msg = {
-    rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
-    owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
-    mods: 'Perintah ini hanya dapat digunakan oleh _*Moderator*_ !',
-    premium: 'Perintah ini hanya untuk member _*Premium*_ !',
-    group: 'Perintah ini hanya dapat digunakan di grup!',
-    private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
-    admin: 'Perintah ini hanya untuk *Admin* grup!',
-    botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-    unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n*+verify*'
+    rowner: "Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_",
+    owner: "Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!",
+    mods: "Perintah ini hanya dapat digunakan oleh _*Moderator*_ !",
+    premium: "Perintah ini hanya untuk member _*Premium*_ !",
+    group: "Perintah ini hanya dapat digunakan di grup!",
+    private: "Perintah ini hanya dapat digunakan di Chat Pribadi!",
+    admin: "Perintah ini hanya untuk *Admin* grup!",
+    botAdmin: "Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!",
+    unreg: "Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n.verify"
   }[type]
   if (msg) return m.reply(msg)
 }
@@ -689,9 +719,20 @@ conn.getGroupAdmins = async(participants) => {
 }
 
 global.Ft = require("./lib/function")
+global.Scrape = require("./lib/scrape")
+global.MessageType = MessageType
+global.Mimetype = require("@adiwajshing/baileys").Mimetype
+global.fs = require("fs")
+global.baileys = require("@adiwajshing/baileys")
 
-let fs = require('fs')
-let chalk = require('chalk')
+global.axios = require("axios")
+global.fetch = require("node-fetch")
+global.cheerio = require("cheerio")
+global.JSDOM = require("jsdom").JSDOM
+
+
+let fs = require("fs")
+let chalk = require("chalk")
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
   fs.unwatchFile(file)

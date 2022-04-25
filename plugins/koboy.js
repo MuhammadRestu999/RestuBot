@@ -1,3 +1,15 @@
+/**
+ * Dibuat oleh : Muhammad Restu
+ * ©Muhammad Restu 2021
+ */
+
+/**
+ * "Wahai orang-orang yang beriman, mengapakah kamu mengatakan sesuatu yang tidak kamu kerjakan?
+ * Amat besar kebencian di sisi Allah bahwa kamu mengatakan apa-apa yang tidak kamu kerjakan."
+ * (QS ash-Shaff: 2-3).
+ */
+
+
 let handler = (m, { conn, usedPrefix, command, text }) => {
   conn.tembak = conn.tembak || { musuh: [], tembak: [] }
    if(/kiri/i.test(text)) {
@@ -92,6 +104,10 @@ let handler = (m, { conn, usedPrefix, command, text }) => {
     return conn.send2Button(m.chat, pos, "©Muhammad Restu", "←", `${usedPrefix}${command} kiri`, "→", `${usedPrefix}${command} kanan`)
   }
 }
+
+
+handler.help = ["koboy"]
+handler.tags = ["fun"]
 
 handler.command = /^(koboy)/i
 

@@ -121,7 +121,7 @@ _*📌My Sosmed*_
 *📎Youtube:* https://youtube.com/channel/UCj-s_sWqCclC-fPsQ001QCA
 
 _*⛩️LIST FEATURE⛩️*_
-🏯 ${usedPrefix}GuntingBatuKertas
+🏯 ${usedPrefix}suit
 🏯 ${usedPrefix}TebakKimia
 🏯 ${usedPrefix}AsahOtak
 🏯 ${usedPrefix}TebakKata
@@ -130,7 +130,7 @@ _*⛩️LIST FEATURE⛩️*_
 🏯 ${usedPrefix}delsesi
 🏯 ${usedPrefix}Kerja <type job>
 🏯 ${usedPrefix}slectJob <nama job>
-🏯${usedPrefix}adventure
+🏯 ${usedPrefix}adventure
 🏯 ${usedPrefix}inventory
 🏯 ${usedPrefix}Berburu
 🏯 ${usedPrefix}Fishing
@@ -145,7 +145,7 @@ _*⛩️LIST FEATURE⛩️*_
 _Jika kamu menemukan Bug Silahkan lapor ke owner_`
 
 ///conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
-conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, '+creator', {
+conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, "+creown", {
     quoted: m,
     contextInfo: {
         externalAdReply: {

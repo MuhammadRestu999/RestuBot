@@ -121,20 +121,17 @@ _*⛩️LIST FEATURE⛩️*_
 🔖 +addmsg <text>
 🔖 +addvideo <text>
 🔖 +addaudio <text>
-🔖 +addimg <text>
 🔖 +addsticker <text>
-🔖 +delcmd <text>  (Premium)
+🔖 +delcmd <text>  (Owner)
 🔖 +delvn <text>
 🔖 +delmsg <text>
 🔖 +delvideo <text>
 🔖 +delaudio <text>
-🔖 +delimg <text>
 🔖 +delsticker <text>
 🔖 +getvn <text>
 🔖 +getmsg <text>
 🔖 +getvideo <text>
 🔖 +getaudio <text>
-🔖 +getimg <text>
 🔖 +getsticker <text>
 🔖 +infocmd <text>
 🔖 +listcmd <text>
@@ -142,16 +139,15 @@ _*⛩️LIST FEATURE⛩️*_
 🔖 +listmsg
 🔖 +listvideo
 🔖 +listaudio
-🔖 +listimg
 🔖 +liststicker
 🔖 +unlockcmd
 🔖 +lockcmd
-🔖 +setcmd <text>  (Premium)
+🔖 +setcmd <text>  (Owner)
 
 _Jika kamu menemukan Bug Silahkan lapor ke owner_`
 
 ///conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
-conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, '+creator', {
+conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, "+creown", {
     quoted: m,
     contextInfo: {
         externalAdReply: {

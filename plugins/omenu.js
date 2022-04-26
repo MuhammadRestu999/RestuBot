@@ -117,6 +117,8 @@ _*📌My Sosmed*_
 *📎Youtube:* https://youtube.com/channel/UCj-s_sWqCclC-fPsQ001QCA
 
 _*⛩️LIST FEATURE⛩️*_
+🔖 +self
+🔖 +public
 🔖 +addprem [@user]
 🔖 +whitelist nomor,nomor
 🔖 +backup
@@ -171,14 +173,14 @@ _*⛩️LIST FEATURE⛩️*_
 🔖 +setwm <packname>
 🔖 +simulate <event> [@mention]
 🔖 +unbanchat
-🔖 +ban
+🔖 +unban
 🔖 +upsw [text] (Reply Media)
 🔖 +upsw <text>
 
 _Jika kamu menemukan Bug Silahkan lapor ke owner_`
 
 ///conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
-conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, '+creator', {
+conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Kembali`, '+menu', `Partner`, "+creown", {
     quoted: m,
     contextInfo: {
         externalAdReply: {

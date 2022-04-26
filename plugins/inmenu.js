@@ -167,7 +167,7 @@ _*💈Anonymous Chat 💈*_
 _Jika kamu menemukan Bug Silahkan lapor ke owner_`
 
 ///conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
-conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Go Back`, '+menu', `Partner`, '+creator', {
+conn.send2ButtonImg( m.chat, tes, avtar, `©RestuBot`, `Go Back`, '+menu', `Partner`, "+creown", {
     quoted: m,
     contextInfo: {
         externalAdReply: {

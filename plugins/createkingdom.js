@@ -2,50 +2,48 @@
 //FAUZAN
 //RIZKY
 //DENTA
-//Restu?
+//Restu
 
 let handler = async(m, {conn, command, usedPrefix, text}) => {
+  let fail = `Format salah\n\nPenggunaan: ${usedPrefix}${command} nama_raja|nama_kerajaan|aliansi\nexample: ${usedPrefix}${command} KingZan|DynastiKingdom|@user`
+  let kingdom = global.DATABASE._data.users[m.sender]
+  let split = text.split("|")
+  let namk = split[0]
+  let kingdomName = split[1]
+  let aliance = split[2] || ""
+  if(kingdom.kingdom) return m.reply("Kamu sudah memiliki kerajaan")
+  if(!namk || !kingdomName) return m.reply(fail)
 
-let fail = 'format salah, example: ' +usedPrefix+command+ ' KingZan|DynastiKingdom|@user'
+  global.DATABASE._data.users[m.sender].kingdom = {
+    namk,
+    kingdomName,
+    troops: 100,
+    population: 100,
+    lvl: 1,
+    aliance,
+    koin: 100000,
+    makanan: 1000,
+    exp: 0,
+    emas: 0,
+    kayu: 0,
+    batu: 0,
+    besi: 0
+  }
 
-let kingdom = global.DATABASE.data.users[m.sender]
-
-let split = text.split`|`
-
-let namk = split[0]
-
-let kingdomName = split[1]
-
-let aliance = split[2]
-
-if (kingdom.created == true) return m.reply('Kamu sudah memiliki kingdom!')
-
-if (!namk || !kingdomName || !aliance) return m.reply(fail)
-
-
-global.DATABASE.data.users[m.sender].created = true
-global.DATABASE.data.users[m.sender].namk = namk
-global.DATABASE.data.users[m.sender].kingdomName
-global.DATABASE.data.users[m.sender].troops = 100
-global.DATABASE.data.users[m.sender].population = 100
-global.DATABASE.data.users[m.sender].lvl = 1
-global.DATABASE.data.users[m.sender].aliance = aliance
-global.DATABASE.data.users[m.sender].koin = 100000
-global.DATABASE._data.users[m.sender].makanan = 1000
-
-conn.reply(m.chat, `
+  conn.reply(m.chat, `
 
 🏰YOUR KINGDOM CREATED!!
 
-🏰Name Kerajaan: ${kingdomName}
-👑Name King: ${namk}
-👥populasi: ${global.DATABASE.data.users[m.sender].population}
-👮army: ${global.DATABASE.data.users[m.sender].troops}
-🎋Level: ${global.DATABASE.data.users[m.sender].lvl}
-💰Koin: ${global.DATABASE.data.users[m.sender].koin} *[ BERGUNA UNTUK UP LEVEL KERAJAAN ]*
+🏰 Nama Kerajaan: ${kingdomName}
+👑 Nama King: ${namk}
+👥 populasi: ${global.DATABASE._data.users[m.sender].kingdom.population}
+👮 Army: ${global.DATABASE._data.users[m.sender].kingdom.troops}
+🎋 Level: ${global.DATABASE._data.users[m.sender].kingdom.lvl}
+🔮 Exp: ${global.DATABASE._data.users[m.sender].kingdom.exp}
+💰 Koin: ${global.DATABASE._data.users[m.sender].kingdom.koin} *[ BERGUNA UNTUK UP LEVEL KERAJAAN ]*
 
 🏳️User Yg diajak aliansi
-${aliance}
+${aliance || "None"}
 
 Cek Kerajaaan mu!
 ${usedPrefix}Mykingdom
@@ -56,20 +54,12 @@ ${usedPrefix}Mykingdom
   })
 }
 
-handler.help = ['kerajaan nama|namakerajaan']
-handler.tags = ['rpg']
+handler.help = ["kerajaan nama|namakerajaan"]
+handler.tags = ["rpg"]
 
 module.exports = handler
 
 handler.command = /^kingdom$/i
 //G USAH NYOLONG ANJG
 //NGAKU NGAKU BUATAN SENDIRI TCH
-//PDHL CUMAN REKODING
-
-
-
-
-
-
-
-
+//PDHL CUMAN REKODIN

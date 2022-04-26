@@ -20,9 +20,9 @@ let pane = ['Wortel','Kubis','stowbery','teh','padi','jeruk','pisang','semangka'
 let panen = pane[Math.floor(Math.random() * pane.length)]
 let bengke = ['mobil','motor','becak','bajai','bus','angkot','becak','sepeda']
 let bengkel = bengke[Math.floor(Math.random() * bengke.length)]
-let ruma = ['Membangun Rumah','Membangun Gedung','Memperbaiki Rumah','Memperbaiki Gedung','Membangun Fasilitas Umum','Memperbaiki Fasilitas Umum']
+let ruma = ['Membangun Musholla', 'Memperbaiki Musholla', 'Membangun Masjid', 'Memperbaiki Masjid', 'Membangun Rumah','Membangun Gedung','Memperbaiki Rumah','Memperbaiki Gedung','Membangun Fasilitas Umum','Memperbaiki Fasilitas Umum']
 let rumah = ruma[Math.floor(Math.random() * ruma.length)]
-let membunu = ['presiden', 'tukang bakso', 'tentara', 'mantan', 'tukang parkir', 'raja', 'munir', 'soehaeto']
+let membunu = ['presiden', 'tukang bakso', 'tentara', 'mantan', 'tukang parkir', 'raja', 'munir', 'soeharto']
 let membunuh = membunu[Math.floor(Math.random() * membunu.length)]
 
 let pppecat = ['Ruko Kebakaran','LO NGOCOK DIDEPAN UMUM','Males Malesan','Ngew istrinya yg punya ruko']
@@ -57,9 +57,9 @@ _Untuk Claim Pekerjaan ketik:_
 ${usedPrefix}selectjob ojek
 
 *📝List Kerja:*
-🎐Ojek
+🎐 Ojek
 🎐 Dokter
-🎐Petani
+🎐 Petani
 🎐 Pedagang
 🎐 Montir
 🎐 Kuli
@@ -70,14 +70,14 @@ ${usedPrefix}selectjob ojek
 if (/kerjadulu|kerja|work/i.test(command)) {
 switch(type) {
 	case 'ojek':
-	if (global.DATABASE._data.users[m.sender].ojek == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+	if (!global.DATABASE._data.users[m.sender].ojek) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += uangm
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
 	m.reply(`Kamu Sudah Mengantarkan *${penumpang}*\nDan mendapatkan uang senilai *Rp ${uangm}*`)
 break
      case 'pedagang':
-     if (global.DATABASE._data.users[m.sender].pedagang == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+     if (!global.DATABASE._data.users[m.sender].pedagang) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += duit
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
@@ -88,39 +88,39 @@ global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
             }
 break
       case 'dokter':
- if (global.DATABASE._data.users[m.sender].dokter == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+ if (!global.DATABASE._data.users[m.sender].dokter) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += duitm
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
 	m.reply(`Kamu menyembuhkan pasien *${pasien}*\nDan mendapatkan uang senilai *Rp ${duitm}*`)
 break
        case 'petani':
-if (global.DATABASE._data.users[m.sender].petani == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+if (!global.DATABASE._data.users[m.sender].petani) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += uangm
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
 	m.reply(`${panen} Sudah Panen\nDan Kamu menjualnya dan mendapatkan uang senilai Rp ${duitd}`)
 break
      case 'montir':
- if (global.DATABASE._data.users[m.sender].montir == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+ if (!global.DATABASE._data.users[m.sender].montir) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += duitr
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
 	m.reply(`Kamu Baru saja mendapatkan pelanggan dan memperbaiki *${bengkel}*\nDan kamu mendapatkan uang senilai *Rp ${duitr}*`)
 break
       case 'kuli':
- if (global.DATABASE._data.users[m.sender].kuli == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+ if (!global.DATABASE._data.users[m.sender].kuli) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += duitk
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
-	m.reply(`Kamu baru saja selesai ${rumah}\nDan condapatkan uang senilai *Rp ${duitk}*`)
+	m.reply(`Kamu baru saja selesai ${rumah}\nDan mendapatkan uang senilai *Rp ${duitk}*`)
 break
       case 'pembunuh':
- if (global.DATABASE._data.users[m.sender].pembunuh == false) throw 'ini bukan tugas kamu atau kamu pengangguran!'
+ if (!global.DATABASE._data.users[m.sender].pembunuh) throw 'ini bukan tugas kamu atau kamu pengangguran!'
 if (new Date - global.DATABASE._data.users[m.sender].lastkerja < 300000)  throw `Kamu sudah bekerja\nSaatnya istirahat selama ${msToTime(time - new Date())}`
 	global.DATABASE._data.users[m.sender].money += uhar
 global.DATABASE._data.users[m.sender].lastkerja = new Date * 1
-	m.reply(`Kamu baru saja membunuh *${membunuh}*\nDan condapatkan uang senilai *Rp ${uhar}*`)
+	m.reply(`Kamu baru saja membunuh *${membunuh}*\nDan mendapatkan uang senilai *Rp ${uhar}*`)
 break
 
 default:

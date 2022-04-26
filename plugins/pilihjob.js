@@ -1,10 +1,10 @@
 let handler = async (m, {conn, command, args, usedPrefix}) => {
 let type = (args[0] || '').toLowerCase()
 //******PEMBATAS********\\
-let pedagang = global.DATABASE.data.users[m.sender].pedagang
+let pedagang = global.DATABASE._data.users[m.sender].pedagang
 //**************************\\
-let users = global.DATABASE.data.users[m.sender]
-let time = global.DATABASE.data.users[m.sender].lastjb + 0
+let users = global.DATABASE._data.users[m.sender]
+let time = global.DATABASE._data.users[m.sender].lastjb + 0
 let jobs = `
 Pilih Job Dibawah
 
@@ -20,106 +20,107 @@ Pilih Job Dibawah
 Ketik
 ${usedPrefix}pilihjob montir
 
-hanya satu kali sehari
+Untuk mereset job
+${usedPrefix}resetjob
 ==========================
 `.trim()
 
 if (/job|pekerjaan/i.test(command)) {
 switch(type) {
 	case 'ojek':
-	if (global.DATABASE.data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'coeg lu kan dah kerja disini'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+	if (global.DATABASE._data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'coeg lu kan dah kerja disini'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
-global.DATABASE.data.users[m.sender].ojek += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+global.DATABASE._data.users[m.sender].ojek = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 break
 case 'dokter':
-if (global.DATABASE.data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'bukannya dah kerja'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].dokter += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'bukannya dah kerja'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].dokter = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 case 'montir':
-if (global.DATABASE.data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir  == true) throw 'lukan dah kerja'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].montir += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir  == true) throw 'lukan dah kerja'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].montir = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 case 'petani':
-if (global.DATABASE.data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == 1) throw 'kamu telah menggunakan job ini'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].petani += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == 1) throw 'kamu telah menggunakan job ini'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].petani = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 case 'kuli':
-if (global.DATABASE.data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].kuli  == true) throw 'lu kan dah kerj tulul'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].kuli += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].pedagang == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].kuli  == true) throw 'lu kan dah kerj tulul'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].kuli = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 case 'pedagang':
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pedagang  == true) throw 'lukan dah kerja tolol'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].pedagang += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pedagang  == true) throw 'lukan dah kerja tolol'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].pedagang = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 case 'pembunuh':
-if (global.DATABASE.data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pedagang  == true) throw 'kamu telah memilih job lain'
-if (global.DATABASE.data.users[m.sender].pembunuh == true) throw 'lukan dah kerja tolol'
-if (new Date - global.DATABASE.data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
-global.DATABASE.data.users[m.sender].pembumuh += true
-global.DATABASE.data.users[m.sender].lastjb = new Date * 1
+if (global.DATABASE._data.users[m.sender].polisi == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].montir == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].petani  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].kuli  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].dokter  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].ojek  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pedagang  == true) throw 'kamu telah memilih job lain'
+if (global.DATABASE._data.users[m.sender].pembunuh == true) throw 'lukan dah kerja tolol'
+if (new Date - global.DATABASE._data.users[m.sender].lastjb < 0) throw `anda telah menggunakan job ini, silahkan tunggu ${msToTime(time - new Date())} untung mengganti job`
+global.DATABASE._data.users[m.sender].pembunuh = true
+global.DATABASE._data.users[m.sender].lastjb = new Date * 1
 conn.reply(m.chat, `selamat anda mendapatkan job ${type}`, m)
 break
 default:

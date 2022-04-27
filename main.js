@@ -23,7 +23,7 @@ global.timestamp = {
 const PORT = process.env.PORT || 3000
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 
-console.log("\nOptions :\n" + Object.entries(opts).filter(v => v[1] == true).map(v => v[0] + " ✓").join("\n") + "\n\n")
+if(Object.entries(opts).filter(v => v[1] == true)[0]) console.log("\nOptions :\n" + Object.entries(opts).filter(v => v[1] == true).map(v => v[0] + " ✓").join("\n") + "\n\n")
 
 //global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 global.prefix = /^([+/%?!#.Y])/i

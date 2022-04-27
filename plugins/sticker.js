@@ -1,5 +1,7 @@
 const { MessageType } = require("@adiwajshing/baileys")
 const { sticker } = require("../lib/sticker")
+const util = require("util")
+
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   let stiker = false
   try {
@@ -8,24 +10,25 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (/image/.test(mime)) {
       let img = await q.download()
       m.reply(`Await....`)
-      if (!img) throw `balas gambar dengan caption *${usedPrefix + command}*`
+      if (!img) return m.reply(`balas gambar dengan caption *${usedPrefix + command}*`)
       stiker = await sticker(img, false, global.packname, global.author)
     } else if (/video/.test(mime)) {
       if ((q.msg || q).seconds > 11) return m.reply("Maksimal 10 detik!")
       let img = await q.download()
       m.reply(`Await....`)
-      if (!img) throw `balas video/gif dengan caption *${usedPrefix + command}*`
+      if (!img) return m.reply(`balas video/gif dengan caption *${usedPrefix + command}*`)
       stiker = await sticker(img, false, global.packname, global.author)
     } else if (/webp/.test(mime)) {
       let img = await q.download()
       m.reply(`Await....`)
-      if (!img) throw `balas sticker dengan caption *${usedPrefix + command}*`
+      if (!img) return m.reply(`balas sticker dengan caption *${usedPrefix + command}*`)
       stiker = await sticker(img, false, global.packname, global.author)
     } else if (args[0]) {
       if (isUrl(args[0])) stiker = await sticker(false, args[0], global.packname, global.author)
       else return m.reply("URL tidak valid!")
     } else return m.reply(`Reply / Kirim gambar, video & gif dengan caption *${usedPrefix+ command}*!`)
   } catch(err) {
+    m.reply(util.parse(err))
   } finally {
     if (stiker) conn.sendMessage(m.chat, stiker, MessageType.sticker, {
       quoted: m,
@@ -38,7 +41,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         }
       }
     })
-    else throw "Gagal membuat sticker, Sepertinya ada yg salah!"
+    else m.reply("Gagal membuat sticker, Sepertinya ada yg salah!")
   }
 }
 handler.help = ["stiker (caption|reply media)", "stiker <url>", "stikergif (caption|reply media)", "stikergif <url>"]

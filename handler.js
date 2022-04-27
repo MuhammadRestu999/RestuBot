@@ -310,8 +310,8 @@ if (!isNumber(user.lele)) user.lele = 0
         console.error(e)
       }
 
-      conn.welcome = "Kon\'nichiwa @user!"
-      conn.bye = "Sayōnara @user"
+      conn.welcome = conn.welcome || "Kon\'nichiwa @user!"
+      conn.bye = conn.bye || "Sayōnara @user"
 
       if (opts['nyimak']) return
       if (opts["autoread"]) conn.chatRead(m.chat)

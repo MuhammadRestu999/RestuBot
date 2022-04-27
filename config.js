@@ -17,6 +17,7 @@ global.APIs = { // API Prefix
   zeks: 'https://api.zeks.xyz',
   LeysCoder: 'https://leyscoders-api.herokuapp.com',
   pencarikode: 'https://pencarikode.xyz',
+  hardianto: "https://hardianto.xyz",
   lolhuman: 'https://api.lolhuman.xyz',
   chipa: 'https://api.chipa.xyz'
 }
@@ -28,7 +29,7 @@ global.APIKeys = { // APIKey Here
   'https://bsbt-api-rest.herokuapp.com': 'benniismael',
   'https://api.zeks.xyz': 'apivinz',
   'https://pencarikode.xyz': 'pais',
-  'https://hardianto-chan.herokuapp.com': 'hardianto',
+  'https://hardianto.xyz': 'hardianto',
   'https://leyscoders-api.herokuapp.com': 'MIMINGANZ',
   'https://api.lolhuman.xyz': 'APIKEY_DISINI',
   'https://api.chipa.xyz': 'APIKEY_DISINI'

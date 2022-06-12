@@ -10,21 +10,21 @@ let handler = async(m, { conn, text }) => {
 
   if(you.healt < enemy.healt) {
     m.reply("Kamu kalah!\n\nYou lose!")
-    m.reply(`@${m.sender.split("@")[0]}: -10000\n@${others.split("@")[0]}: +10000`)
+    m.reply(`@${m.sender.split("@")[0]}: -10000 💵\n@${others.split("@")[0]}: +10000 💵`)
     global.DATABASE._data.users[others].healt -= you.healt
     global.DATABASE._data.users[m.sender].healt = 0
     global.DATABASE._data.users[m.sender].money -= 10000
     global.DATABASE._data.users[m?.quoted?.sender || m.mentionedJid[0]].money += 10000
   } else if(you.healt > enemy.healt) {
     m.reply("Kamu menang!\n\nYou win!")
-    m.reply(`@${m.sender.split("@")[0]}: +10000\n@${others.split("@")[0]}: -10000`)
+    m.reply(`@${m.sender.split("@")[0]}: +10000 💵\n@${others.split("@")[0]}: -10000 💵`)
     global.DATABASE._data.users[m.sender].healt -= enemy.healt
     global.DATABASE._data.users[others].healt = 0
     global.DATABASE._data.users[m.sender].money += 10000
     global.DATABASE._data.users[m?.quoted?.sender || m.mentionedJid[0]].money -= 10000
   } else {
     m.reply("Seri\n\nDraw")
-    m.reply(`@${m.sender.split("@")[0]}: +5000\n@${others.split("@")[0]}: +5000`)
+    m.reply(`@${m.sender.split("@")[0]}: +5000 💵\n@${others.split("@")[0]}: +5000 💵`)
     global.DATABASE._data.users[m.sender].healt = 0
     global.DATABASE._data.users[others].healt = 0
     global.DATABASE._data.users[m.sender].money += 5000
